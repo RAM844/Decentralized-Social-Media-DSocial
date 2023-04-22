@@ -1,29 +1,10 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { fetcher } from './auth-fetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-
-function fetcher<TData, TVariables>(endpoint: string, requestInit: RequestInit, query: string, variables?: TVariables) {
-  return async (): Promise<TData> => {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      ...requestInit,
-      body: JSON.stringify({ query, variables }),
-    });
-
-    const json = await res.json();
-
-    if (json.errors) {
-      const { message } = json.errors[0];
-
-      throw new Error(message);
-    }
-
-    return json.data;
-  }
-}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -3573,8 +3554,7 @@ export const ProfileFieldsFragmentDoc = `
     }
   }
 }
-    ${MediaFieldsFragmentDoc}
-${FollowModuleFieldsFragmentDoc}`;
+    `;
 export const PublicationStatsFieldsFragmentDoc = `
     fragment PublicationStatsFields on PublicationStats {
   totalAmountOfMirrors
@@ -3641,12 +3621,7 @@ export const SimpleConditionFieldsFragmentDoc = `
     ...CollectConditionFields
   }
 }
-    ${NftOwnershipFieldsFragmentDoc}
-${EoaOwnershipFieldsFragmentDoc}
-${Erc20OwnershipFieldsFragmentDoc}
-${ProfileOwnershipFieldsFragmentDoc}
-${FollowConditionFieldsFragmentDoc}
-${CollectConditionFieldsFragmentDoc}`;
+    `;
 export const BooleanConditionFieldsRecursiveFragmentDoc = `
     fragment BooleanConditionFieldsRecursive on AccessConditionOutput {
   and {
@@ -3680,14 +3655,13 @@ export const BooleanConditionFieldsRecursiveFragmentDoc = `
     }
   }
 }
-    ${SimpleConditionFieldsFragmentDoc}`;
+    `;
 export const AccessConditionFieldsFragmentDoc = `
     fragment AccessConditionFields on AccessConditionOutput {
   ...SimpleConditionFields
   ...BooleanConditionFieldsRecursive
 }
-    ${SimpleConditionFieldsFragmentDoc}
-${BooleanConditionFieldsRecursiveFragmentDoc}`;
+    `;
 export const EncryptedMediaFieldsFragmentDoc = `
     fragment EncryptedMediaFields on EncryptedMedia {
   url
@@ -3708,7 +3682,7 @@ export const EncryptedMediaSetFieldsFragmentDoc = `
     ...EncryptedMediaFields
   }
 }
-    ${EncryptedMediaFieldsFragmentDoc}`;
+    `;
 export const MetadataOutputFieldsFragmentDoc = `
     fragment MetadataOutputFields on MetadataOutput {
   name
@@ -3748,9 +3722,7 @@ export const MetadataOutputFieldsFragmentDoc = `
     }
   }
 }
-    ${MediaFieldsFragmentDoc}
-${AccessConditionFieldsFragmentDoc}
-${EncryptedMediaSetFieldsFragmentDoc}`;
+    `;
 export const Erc20FieldsFragmentDoc = `
     fragment Erc20Fields on Erc20 {
   name
@@ -3824,7 +3796,7 @@ export const CollectModuleFieldsFragmentDoc = `
     collectModuleReturnData
   }
 }
-    ${Erc20FieldsFragmentDoc}`;
+    `;
 export const ReferenceModuleFieldsFragmentDoc = `
     fragment ReferenceModuleFields on ReferenceModule {
   ... on FollowOnlyReferenceModuleSettings {
@@ -3870,11 +3842,7 @@ export const MirrorBaseFieldsFragmentDoc = `
   hasCollectedByMe
   isGated
 }
-    ${ProfileFieldsFragmentDoc}
-${PublicationStatsFieldsFragmentDoc}
-${MetadataOutputFieldsFragmentDoc}
-${CollectModuleFieldsFragmentDoc}
-${ReferenceModuleFieldsFragmentDoc}`;
+    `;
 export const PostFieldsFragmentDoc = `
     fragment PostFields on Post {
   id
@@ -3901,11 +3869,7 @@ export const PostFieldsFragmentDoc = `
   hasCollectedByMe
   isGated
 }
-    ${ProfileFieldsFragmentDoc}
-${PublicationStatsFieldsFragmentDoc}
-${MetadataOutputFieldsFragmentDoc}
-${CollectModuleFieldsFragmentDoc}
-${ReferenceModuleFieldsFragmentDoc}`;
+    `;
 export const CommentBaseFieldsFragmentDoc = `
     fragment CommentBaseFields on Comment {
   id
@@ -3932,11 +3896,7 @@ export const CommentBaseFieldsFragmentDoc = `
   hasCollectedByMe
   isGated
 }
-    ${ProfileFieldsFragmentDoc}
-${PublicationStatsFieldsFragmentDoc}
-${MetadataOutputFieldsFragmentDoc}
-${CollectModuleFieldsFragmentDoc}
-${ReferenceModuleFieldsFragmentDoc}`;
+    `;
 export const CommentMirrorOfFieldsFragmentDoc = `
     fragment CommentMirrorOfFields on Comment {
   ...CommentBaseFields
@@ -3949,9 +3909,7 @@ export const CommentMirrorOfFieldsFragmentDoc = `
     }
   }
 }
-    ${CommentBaseFieldsFragmentDoc}
-${PostFieldsFragmentDoc}
-${MirrorBaseFieldsFragmentDoc}`;
+    `;
 export const CommentFieldsFragmentDoc = `
     fragment CommentFields on Comment {
   ...CommentBaseFields
@@ -3972,10 +3930,7 @@ export const CommentFieldsFragmentDoc = `
     }
   }
 }
-    ${CommentBaseFieldsFragmentDoc}
-${PostFieldsFragmentDoc}
-${MirrorBaseFieldsFragmentDoc}
-${CommentMirrorOfFieldsFragmentDoc}`;
+    `;
 export const MirrorFieldsFragmentDoc = `
     fragment MirrorFields on Mirror {
   ...MirrorBaseFields
@@ -3988,9 +3943,7 @@ export const MirrorFieldsFragmentDoc = `
     }
   }
 }
-    ${MirrorBaseFieldsFragmentDoc}
-${PostFieldsFragmentDoc}
-${CommentFieldsFragmentDoc}`;
+    `;
 export const TxReceiptFieldsFragmentDoc = `
     fragment TxReceiptFields on TransactionReceipt {
   to
@@ -4029,7 +3982,7 @@ export const WalletFieldsFragmentDoc = `
     ...ProfileFields
   }
 }
-    ${ProfileFieldsFragmentDoc}`;
+    `;
 export const CommonPaginatedResultInfoFieldsFragmentDoc = `
     fragment CommonPaginatedResultInfoFields on PaginatedResultInfo {
   prev
@@ -4043,28 +3996,28 @@ export const AndConditionFieldsFragmentDoc = `
     ...AccessConditionFields
   }
 }
-    ${AccessConditionFieldsFragmentDoc}`;
+    `;
 export const OrConditionFieldsFragmentDoc = `
     fragment OrConditionFields on OrConditionOutput {
   criteria {
     ...AccessConditionFields
   }
 }
-    ${AccessConditionFieldsFragmentDoc}`;
+    `;
 export const AndConditionFieldsNoRecursiveFragmentDoc = `
     fragment AndConditionFieldsNoRecursive on AndConditionOutput {
   criteria {
     ...SimpleConditionFields
   }
 }
-    ${SimpleConditionFieldsFragmentDoc}`;
+    `;
 export const OrConditionFieldsNoRecursiveFragmentDoc = `
     fragment OrConditionFieldsNoRecursive on OrConditionOutput {
   criteria {
     ...SimpleConditionFields
   }
 }
-    ${SimpleConditionFieldsFragmentDoc}`;
+    `;
 export const ExplorePublicationsDocument = `
     query ExplorePublications($request: ExplorePublicationRequest!) {
   explorePublications(request: $request) {
@@ -4086,20 +4039,41 @@ export const ExplorePublicationsDocument = `
   }
 }
     ${PostFieldsFragmentDoc}
+${ProfileFieldsFragmentDoc}
+${MediaFieldsFragmentDoc}
+${FollowModuleFieldsFragmentDoc}
+${PublicationStatsFieldsFragmentDoc}
+${MetadataOutputFieldsFragmentDoc}
+${AccessConditionFieldsFragmentDoc}
+${SimpleConditionFieldsFragmentDoc}
+${NftOwnershipFieldsFragmentDoc}
+${EoaOwnershipFieldsFragmentDoc}
+${Erc20OwnershipFieldsFragmentDoc}
+${ProfileOwnershipFieldsFragmentDoc}
+${FollowConditionFieldsFragmentDoc}
+${CollectConditionFieldsFragmentDoc}
+${BooleanConditionFieldsRecursiveFragmentDoc}
+${EncryptedMediaSetFieldsFragmentDoc}
+${EncryptedMediaFieldsFragmentDoc}
+${CollectModuleFieldsFragmentDoc}
+${Erc20FieldsFragmentDoc}
+${ReferenceModuleFieldsFragmentDoc}
 ${CommentFieldsFragmentDoc}
+${CommentBaseFieldsFragmentDoc}
+${MirrorBaseFieldsFragmentDoc}
+${CommentMirrorOfFieldsFragmentDoc}
 ${MirrorFieldsFragmentDoc}
 ${CommonPaginatedResultInfoFieldsFragmentDoc}`;
 export const useExplorePublicationsQuery = <
       TData = ExplorePublicationsQuery,
       TError = unknown
     >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
       variables: ExplorePublicationsQueryVariables,
       options?: UseQueryOptions<ExplorePublicationsQuery, TError, TData>
     ) =>
     useQuery<ExplorePublicationsQuery, TError, TData>(
       ['ExplorePublications', variables],
-      fetcher<ExplorePublicationsQuery, ExplorePublicationsQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, ExplorePublicationsDocument, variables),
+      fetcher<ExplorePublicationsQuery, ExplorePublicationsQueryVariables>(ExplorePublicationsDocument, variables),
       options
     );
 
