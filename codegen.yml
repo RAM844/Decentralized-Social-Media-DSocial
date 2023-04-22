@@ -1,0 +1,18 @@
+# 1.schema - where is the graphql schema located at
+ schema: "src/graphql/schema.graphql"
+
+ #2. documents - what path are the graphql operations are located
+ documents: "src/graphql/*.graphql"
+
+ #3. where to we want to generate the output 
+ # what plugins do we want to include 
+ # what optional configurational flags do we want to include 
+ generates:
+    src/graphql/generated.ts:
+      plugins:
+        - typescript
+        - typescript-operations
+        - typescript-react-query
+        - fragment-matcher
+      config:
+        - dedupeFragments: true
