@@ -15,4 +15,8 @@
         - typescript-react-query
         - fragment-matcher
       config:
-        - dedupeFragments: true
+        dedupeFragments: true
+        fetcher:
+        # What function to run?
+          func: "./auth-fetcher#fetcher"
+          isReactHook: false
