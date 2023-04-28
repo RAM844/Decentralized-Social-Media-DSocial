@@ -1,13 +1,15 @@
 //What logic we want to run every time we send a request
 //to the lens graphql server?
 
+
+
 export const fetcher = <TData, TVariables>(
     query: string,
     variables?: TVariables,
     options?: RequestInit['headers']
 ): (() => Promise<TData>) => {
     return async () => {
-        const res = await fetch("https://api.lens.dev", {
+        const res = await fetch("https://api.lens.dev/", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
