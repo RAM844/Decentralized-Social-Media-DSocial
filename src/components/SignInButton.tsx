@@ -26,7 +26,7 @@ export default function SignInButton({}: Props) {
 
 
   //3. Sing in with lens.
-  if()
+  // if()
 
   //4. show the user thier profile on lens.
 

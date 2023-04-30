@@ -2,6 +2,7 @@ import { useAddress, useSDK } from "@thirdweb-dev/react";
 import generateChallenge from "./generateChallenge";
 import { useAuthenticateMutation } from "@/graphql/generated";
 import { useMutation } from "@tanstack/react-query";
+import {setAccesToken} from "../../lib/auth/helpers"
 // 0. use has a connected wallet 
 
 
@@ -33,8 +34,11 @@ export default function useLogin(){
        console.log("Authencated",authenticate);
        
        // 4. receive a access token from the Lens api if we succed 
-
        // 5. Store the access token inside local storage so we can use it
+
+       const {accessToken, refreshToken} = authenticate;
+
+       setAccesToken(accessToken,refreshToken); 
 
     }
 
