@@ -44,6 +44,7 @@ export const fetcher = <TData, TVariables>(
                 'Content-Type': 'application/json',
                 ...options,
                 "x-acces-token":token?token:"",
+                "Access-Control-Allow-Origin":"*",
             },
             body: JSON.stringify({
                 query,
