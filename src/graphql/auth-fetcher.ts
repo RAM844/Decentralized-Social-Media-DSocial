@@ -1,8 +1,8 @@
 //What logic we want to run every time we send a request
 //to the lens graphql server?
 
-import { isTokenExpired, readAccesToken } from "@/lib/auth/helpers"
-import refreshAccesToken from "@/lib/auth/refreshAccesToken";
+import { isTokenExpired, readAccessToken } from "@/lib/auth/helpers"
+import refreshAccessToken from "@/lib/auth/refreshAccessToken";
 
 
 
@@ -12,23 +12,23 @@ export const fetcher = <TData, TVariables>(
     options?: RequestInit['headers']
 ): (() => Promise<TData>) => {
 
-    async function getAccesToken() {
+    async function getAccessToken() {
         //1. check the local storage for acces storage 
-        const token = readAccesToken();
+        const token = readAccessToken();
         // 2.if there is't a token then return null(not signed in )
-        if(!token )return null;
+        if (!token) return null;
 
 
         let accessToken = token?.accessToken;
-        
+
         // 3.if there is a token , then check its expiration 
-        if(isTokenExpired(token.exp)){
+        if (isTokenExpired(token.exp)) {
             //4. if it's expired , update using refresh token 
-             const newToken = await refreshAccesToken();
-             if(!newToken){
+            const newToken = await refreshAccessToken();
+            if (!newToken) {
                 return null;
-             }
-             accessToken = newToken;
+            }
+            accessToken = newToken;
         }
         // 5.finally, return the token 
         return accessToken
@@ -36,15 +36,15 @@ export const fetcher = <TData, TVariables>(
     }
 
     return async () => {
-        const token = typeof window !== "undefined" ? await getAccesToken():null;
+        const token = typeof window !== "undefined" ? await getAccessToken() : null;
 
-        const res = await fetch("https://api.lens.dev/", {
+        const res = await fetch("https://api-mumbai.lens.dev", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 ...options,
-                "x-acces-token":token?token:"",
-                "Access-Control-Allow-Origin":"*",
+                "x-acces-token": token ? token : "",
+                "Access-Control-Allow-Origin": "*",
             },
             body: JSON.stringify({
                 query,
