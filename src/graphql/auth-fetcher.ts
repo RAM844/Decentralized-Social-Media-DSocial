@@ -43,7 +43,7 @@ export const fetcher = <TData, TVariables>(
             headers: {
                 'Content-Type': 'application/json',
                 ...options,
-                "x-acces-token": token ? token : "",
+                "x-access-token": token ? token : "",
                 "Access-Control-Allow-Origin": "*",
             },
             body: JSON.stringify({
@@ -53,8 +53,9 @@ export const fetcher = <TData, TVariables>(
         })
 
         const json = await res.json()
-
+        
         if (json.errors) {
+            console.log("Error in auth-fetcher");
             const { message } = json.errors[0] || {}
             throw new Error(message || 'Error…')
         }

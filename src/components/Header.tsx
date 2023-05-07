@@ -12,6 +12,7 @@ export default function Header() {
                         <img src="/logo.png" alt="logo" className={styles.logo} />
                     </Link>
 
+                    <Link href={"/create"}>Create</Link>
                 </div>
 
                 <div className={styles.right}>

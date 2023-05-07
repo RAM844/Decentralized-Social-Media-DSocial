@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
   //Create a client
   const queryClient = new QueryClient();
 
-  const desiredChainId = ChainId.Polygon
+  const desiredChainId = ChainId.Mumbai
   return (
     <ThirdwebProvider activeChain={desiredChainId}>
       {/* here it should be desiredChainId as It is giving me error i will be assuming
