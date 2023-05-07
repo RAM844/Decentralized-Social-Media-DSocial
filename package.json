@@ -22,6 +22,7 @@
     "ethers": "^5.7.2",
     "graphql": "^16.6.0",
     "next": "13.3.0",
+    "omit-deep": "^0.3.0",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -33,6 +34,7 @@
     "@graphql-codegen/fragment-matcher": "^4.0.1",
     "@graphql-codegen/typescript": "^3.0.3",
     "@graphql-codegen/typescript-operations": "^3.0.3",
-    "@graphql-codegen/typescript-react-query": "^4.1.0"
+    "@graphql-codegen/typescript-react-query": "^4.1.0",
+    "@types/omit-deep": "^0.3.0"
   }
 }
