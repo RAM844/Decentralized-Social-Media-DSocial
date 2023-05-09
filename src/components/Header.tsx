@@ -12,7 +12,7 @@ export default function Header() {
                         <img src="/logo.png" alt="logo" className={styles.logo} />
                     </Link>
 
-                    <Link href={"/create"}>Create</Link>
+                    <Link href={"/create"} style={{border:"black 2px solid",padding:"10px",fontSize:"20px",borderRadius:"5px",marginLeft:"20px"}}>Create a Post</Link>
                 </div>
 
                 <div className={styles.right}>

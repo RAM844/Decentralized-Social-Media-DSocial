@@ -4,21 +4,16 @@
 import { isTokenExpired, readAccessToken } from "@/lib/auth/helpers"
 import refreshAccessToken from "@/lib/auth/refreshAccessToken";
 
-
-
 export const fetcher = <TData, TVariables>(
     query: string,
     variables?: TVariables,
     options?: RequestInit['headers']
 ): (() => Promise<TData>) => {
-
     async function getAccessToken() {
         //1. check the local storage for acces storage 
         const token = readAccessToken();
         // 2.if there is't a token then return null(not signed in )
         if (!token) return null;
-
-
         let accessToken = token?.accessToken;
 
         // 3.if there is a token , then check its expiration 

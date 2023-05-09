@@ -8,10 +8,11 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: darkslategray;
+    background-color: #445469;
     border-bottom: 1px solid white;
     z-index: 99999;
 }
+
 
 .logo {
     height: 48px;
